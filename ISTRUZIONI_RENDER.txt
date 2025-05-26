@@ -1,0 +1,117 @@
+🚀 ISTRUZIONI PER DEPLOYMENT SU RENDER
+
+📁 CARTELLA PREPARATA PER IL CARICAMENTO
+═══════════════════════════════════════════
+
+Questa cartella contiene tutti i file necessari per caricare il bot su GitHub e poi su Render.
+
+🔐 VARIABILI D'AMBIENTE DA CONFIGURARE SU RENDER:
+═════════════════════════════════════════════════
+
+Quando configuri il servizio su Render, aggiungi queste variabili nella sezione "Environment Variables":
+
+Nome: DATABASE_URL
+Valore: postgresql://otpbot:9LnkweXrxhITgJDeyZfTSIE58XAT4kBK@dpg-d0q357je5dus73ebqe20-a.oregon-postgres.render.com/otp_bot_db
+
+Nome: BOT_TOKEN
+Valore: 7665362078:AAGBxywFWwhIkOdgsmadGf8Xwq5JsP8IlPM
+
+Nome: SMS_ACTIVATE_API_KEY
+Valore: 383B566c5200B154873447477d88441e
+
+Nome: ADMIN_CHAT_IDS
+Valore: 7872473166
+
+Nome: COUNTRY_CODE
+Valore: 86
+
+📝 PASSAGGI PER IL DEPLOYMENT:
+════════════════════════════
+
+1. CARICA SU GITHUB:
+   ─────────────────
+   • Vai su github.com
+   • Crea nuovo repository pubblico: "bot-otp-render"
+   • Carica TUTTI i file di questa cartella
+   • Fai commit delle modifiche
+
+2. CONFIGURA RENDER:
+   ─────────────────
+   • Vai su render.com
+   • Clicca "New +" → "Web Service"
+   • Seleziona "Build and deploy from a Git repository"
+   • Connetti il tuo account GitHub
+   • Seleziona il repository "bot-otp-render"
+
+3. IMPOSTAZIONI RENDER:
+   ──────────────────
+   Name: bot-otp-render
+   Region: Oregon (US West)
+   Branch: main
+   Root Directory: (lascia vuoto)
+   Runtime: Python 3
+   Build Command: pip install -r requirements.txt
+   Start Command: python main.py
+
+4. AGGIUNGI VARIABILI D'AMBIENTE:
+   ──────────────────────────────
+   • Nella pagina di configurazione di Render
+   • Sezione "Environment Variables"
+   • Aggiungi tutte le variabili elencate sopra
+   • IMPORTANTE: Non mettere mai questi valori nel codice!
+
+5. DEPLOY:
+   ───────
+   • Clicca "Create Web Service"
+   • Attendi il completamento del build (5-10 minuti)
+   • Controlla i logs per verificare che tutto funzioni
+
+📋 FILE INCLUSI IN QUESTA CARTELLA:
+══════════════════════════════════
+
+✅ main.py - Punto di ingresso del bot
+✅ bot.py - Logica principale del bot Telegram
+✅ models.py - Modelli database PostgreSQL
+✅ config.py - Configurazione (legge variabili d'ambiente)
+✅ sms_activate_service.py - Integrazione SMS-Activate
+✅ message_listener.py - Listener per messaggi OTP
+✅ phone_service.py - Gestione servizi telefonici
+✅ init_db.py - Inizializzazione database
+✅ requirements.txt - Dipendenze Python (psycopg2-binary)
+✅ Procfile - Configurazione per Render
+✅ runtime.txt - Versione Python (3.11.0)
+✅ README.md - Documentazione del progetto
+✅ setup.py - Setup del pacchetto
+✅ .env.example - Template variabili d'ambiente
+✅ .gitignore - File da ignorare in Git
+✅ ISTRUZIONI_RENDER.txt - Questo file
+
+🛡️ FILE ESCLUSI PER SICUREZZA:
+═════════════════════════════
+
+❌ .env - Contiene dati sensibili (non deve mai essere caricato su Git)
+❌ __pycache__/ - Cache Python
+❌ *.pyc - File compilati Python
+❌ output.txt - File temporanei
+
+⚠️ NOTE IMPORTANTI:
+═══════════════════
+
+1. NON caricare mai il file .env su repository pubbliche
+2. Usa sempre le variabili d'ambiente di Render per i dati sensibili
+3. Il database PostgreSQL è già configurato e funzionante
+4. Il bot si riavvierà automaticamente su Render ad ogni push su Git
+5. Render fornisce SSL/HTTPS automaticamente
+6. Il tier gratuito di Render "dorme" dopo 15 minuti di inattività
+
+🔗 LINK UTILI:
+═════════════
+
+• GitHub: https://github.com
+• Render: https://render.com
+• Documentazione Render: https://render.com/docs
+
+✅ LA CARTELLA È PRONTA PER IL CARICAMENTO!
+
+Ora puoi procedere con i passaggi sopra per mettere online il tuo bot.
+Se hai problemi, controlla sempre i logs di Render per diagnosticare eventuali errori.
